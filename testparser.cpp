@@ -34,11 +34,11 @@ TestParser::TestParser(QByteArray data) :
 
     if (retcode == 0) {
         qDebug() << "Successfully parsed" << parsedElements.count() << "elements";
-        mElements = parsedElements;
+        mElements.swap(parsedElements);
     }
 }
 
-elements_t TestParser::elements()
+elements_t& TestParser::elements()
 {
     return mElements;
 }

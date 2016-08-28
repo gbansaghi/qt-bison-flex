@@ -59,7 +59,7 @@ statements:
     ;
 
 statement:
-    MAX INTEGER ALIGN alignment    { ParseElement e{$2, static_cast<Qt::AlignmentFlag>($4)}; parsedElements.push_back(e); }
+    MAX INTEGER ALIGN alignment    { parsedElements << ParseElement{$2, static_cast<Qt::AlignmentFlag>($4)}; }
     ;
 
 alignment:

@@ -19,7 +19,7 @@ class TestParser
     elements_t mElements;
 public:
     TestParser(QByteArray data);
-    elements_t elements();
+    elements_t& elements();
 };
 
 #endif // TESTPARSER_H

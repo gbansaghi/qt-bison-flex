@@ -65,7 +65,6 @@
 #line 1 "parser.y" /* yacc.c:339  */
 
 #include "common.h"
-#include <Qt>
 
 int yylex();
 void yyerror(const char *s);
@@ -74,7 +73,7 @@ elements_t parsedElements;
 int lineno;
 
 
-#line 78 "parser.cpp" /* yacc.c:339  */
+#line 77 "parser.cpp" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -126,11 +125,11 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 17 "parser.y" /* yacc.c:355  */
+#line 16 "parser.y" /* yacc.c:355  */
 
     int v_int;
 
-#line 134 "parser.cpp" /* yacc.c:355  */
+#line 133 "parser.cpp" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -147,7 +146,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 151 "parser.cpp" /* yacc.c:358  */
+#line 150 "parser.cpp" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -445,8 +444,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    31,    31,    31,    41,    43,    47,    51,    53,    57,
-      59,    63,    67,    69,    71
+       0,    30,    30,    30,    40,    42,    46,    50,    52,    56,
+      58,    62,    66,    68,    70
 };
 #endif
 
@@ -1225,49 +1224,49 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 31 "parser.y" /* yacc.c:1646  */
+#line 30 "parser.y" /* yacc.c:1646  */
     { lineno = 1; parsedElements.clear(); }
-#line 1231 "parser.cpp" /* yacc.c:1646  */
+#line 1230 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 37 "parser.y" /* yacc.c:1646  */
+#line 36 "parser.y" /* yacc.c:1646  */
     {}
-#line 1237 "parser.cpp" /* yacc.c:1646  */
+#line 1236 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 47 "parser.y" /* yacc.c:1646  */
+#line 46 "parser.y" /* yacc.c:1646  */
     { ++lineno; }
-#line 1243 "parser.cpp" /* yacc.c:1646  */
+#line 1242 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 63 "parser.y" /* yacc.c:1646  */
-    { ParseElement e{(yyvsp[-2].v_int), static_cast<Qt::AlignmentFlag>((yyvsp[0].v_int))}; parsedElements.push_back(e); }
-#line 1249 "parser.cpp" /* yacc.c:1646  */
+#line 62 "parser.y" /* yacc.c:1646  */
+    { parsedElements << ParseElement{(yyvsp[-2].v_int), static_cast<Qt::AlignmentFlag>((yyvsp[0].v_int))}; }
+#line 1248 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 67 "parser.y" /* yacc.c:1646  */
+#line 66 "parser.y" /* yacc.c:1646  */
     { (yyval.v_int) = static_cast<int>(Qt::AlignLeft); }
-#line 1255 "parser.cpp" /* yacc.c:1646  */
+#line 1254 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 69 "parser.y" /* yacc.c:1646  */
+#line 68 "parser.y" /* yacc.c:1646  */
     { (yyval.v_int) = static_cast<int>(Qt::AlignRight); }
-#line 1261 "parser.cpp" /* yacc.c:1646  */
+#line 1260 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 71 "parser.y" /* yacc.c:1646  */
+#line 70 "parser.y" /* yacc.c:1646  */
     { (yyval.v_int) = static_cast<int>(Qt::AlignCenter); }
-#line 1267 "parser.cpp" /* yacc.c:1646  */
+#line 1266 "parser.cpp" /* yacc.c:1646  */
     break;
 
 
-#line 1271 "parser.cpp" /* yacc.c:1646  */
+#line 1270 "parser.cpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1495,7 +1494,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 74 "parser.y" /* yacc.c:1906  */
+#line 73 "parser.y" /* yacc.c:1906  */
 
 
 void yyerror(const char *s) {
