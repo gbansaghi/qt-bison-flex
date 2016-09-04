@@ -17,6 +17,12 @@ int lineno;
     int v_int;
 }
 
+%initial-action
+{
+    lineno = 1;
+    parsedElements.clear();
+}
+
 %token HELLO GOODBYE MAX ALIGN
 %token LEFT RIGHT CENTER
 %token ENDL
@@ -27,7 +33,6 @@ int lineno;
 %%
 
 program:
-                { lineno = 1; parsedElements.clear(); }
     HELLO
     endls
     statements
