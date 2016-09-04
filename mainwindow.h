@@ -16,8 +16,8 @@ public:
     ~MainWindow();
 
 private slots:
-    void browse();
-    void parse();
+    void on_browseButton_clicked();
+    void on_parseButton_clicked();
 
 private:
     Ui::MainWindow *ui;

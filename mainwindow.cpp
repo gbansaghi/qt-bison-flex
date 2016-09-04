@@ -15,9 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    connect(ui->browseButton, SIGNAL(clicked(bool)), this, SLOT(browse()));
-    connect(ui->parseButton, SIGNAL(clicked(bool)), this, SLOT(parse()));
 }
 
 MainWindow::~MainWindow()
@@ -25,7 +22,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::browse()
+void MainWindow::on_browseButton_clicked()
 {
     QString path = QFileDialog::getOpenFileName(this, "Choose file", QDir::current().absolutePath(), "Sample input files (*.sif)");
 
@@ -39,7 +36,7 @@ void MainWindow::browse()
     ui->filePathEdit->setToolTip(path);
 }
 
-void MainWindow::parse()
+void MainWindow::on_parseButton_clicked()
 {
     if (ui->filePathEdit->text().isEmpty()) {
         return;
