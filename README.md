@@ -1,6 +1,6 @@
 # qt-bison-flex
 
-This is a sample project demonstrating the integration of a Flex/Bison parser into a Qt GUI application. Since code demonstration is the main goal of this project, no binaries are included. The project can be opened and compiled with [Qt Creator][creator]. A detailed description of the code is provided [below](#under-the-hood)
+This is a sample project demonstrating the integration of a Flex/Bison parser into a Qt GUI application. Since code demonstration is the main goal of this project, no binaries are included. The project can be opened and compiled with [Qt Creator][creator]. A detailed description of the code is provided [below](#about).
 
 ## Setup
 
@@ -27,7 +27,7 @@ Once compiled, the executable needs an input file to parse. The simple -- and ra
  
 For each specification line, the program creates two widgets in the "Parse results" frame: a spinbox from 0 to the number given after `max`, and a label with the text "Sample text" and the alignment specified (left, right or center).
 
-## Under the hood
+## About
 
 This description is not meant to be an exhaustive tutorial on Bison/Flex or Qt, but a general description of the approach I used for integrating them.
 
@@ -52,7 +52,19 @@ flex scanner.l
 
 The lexer/parser can be used by including the header files at the desired point in the project.
 
+### The Flex source
 
+As mentioned [above](#making-an-includeable-lexerparser), the top section needs to `#include` the Bison-generated header. The only other include in this project is `<cstdlib>`, as char-to-integer conversion is done by `atoi()`. The `yylex()` and `yyerror()` declarations are basically boilerplate. The `noyywrap` and `nounput` options are used to suppress compiler warnings and to avoid having to declare a "dummy" `yywrap()` function (or macro).
+
+### The Bison source
+
+Bison can make use of any Qt class, although this is somewhat obscured by having all declarations in [`common.h`](common.h) ( e.g. `elements_t` is a `typedef` for a `QVector` of `ParseElement` objects). This seems to be restricted, however, to actual C++ blocks, i.e. the top and bottom sections as well as any (brace-enclosed) actions within rules. The `%union` directive, for example, would not accept `Qt::AlignmentFlag`, which is why that type is passed between rules by `static_cast`ing to/from `int`.
+
+In case of an error, `yyerror()` throws an exception and stops parsing (the exception propagates up and is caught by the `try` block surrounding the call to `yyparse()` in [`testparser.cpp`](testparser.cpp)). This was done to keep this demo simple, however, there are possibilities for more sophisticated error handling and reporting. For example, while you can’t use `emit` within the Bison source (since it won't be processed by [moc][moc]), you can create a `QObject` with proxy methods emitting signals, and call those from the actions. By using the [`qRegisterMetatype<>()`][qregistermetatype] method, any\* object can be sent through the signal/slot mechanism.
+
+\*From the [docs][qregistermetatype]: "Any class or struct that has a public default constructor, a public copy constructor and a public destructor can be registered."
 
 [creator]: http://doc.qt.io/qtcreator/index.html
 [kits]: http://doc.qt.io/qtcreator/creator-targets.html
+[moc]: http://doc.qt.io/qt-5/moc.html
+[qregistermetatype]: http://doc.qt.io/qt-5/qmetatype.html#qRegisterMetaType
